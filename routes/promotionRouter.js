@@ -11,7 +11,7 @@ promotionRouter.route('/')
         res.end('Will send all the promotions to you');
     })
     .post((req, res) => {
-        res.end(`Will add the promotions: ${req.body.name} with description: ${req.body.description}`);
+        res.end(`Will add the promotion: ${req.body.name} with description: ${req.body.description}`);
     })
     .put((req, res) => {
         res.statusCode = 403;
@@ -21,24 +21,24 @@ promotionRouter.route('/')
         res.end('Deleting all promotions');
     });
 
-promotionRouter.route('/:promotionId:')
+promotionRouter.route('/:promotionId')
     .all((req, res, next) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/plain');
         next();
     })
     .get((req, res) => {
-        res.end('Will send all the promotions to you');
+        res.end(`Will send the details of promotions: ${req.params.promotionId} to you`);
     })
     .post((req, res) => {
-        res.end(`Will add the promotions: ${req.body.name} with description: ${req.body.description}`);
+        res.end(`POST operation not supported on /promotions/${req.params.promotionId}`);
     })
     .put((req, res) => {
         res.statusCode = 403;
-        res.end('PUT operation not supported on /promotions');
+        res.end(`Updating the promotion: ${req.params.promotionId}\nWill update the promotion: ${req.body.name}\n      with ${req.body.description}`);
     })
     .delete((req, res) => {
-        res.end('Deleting all promotions');
+        res.end(`Deleting promotion: ${req.params.promotionId}`);
     });
 
 module.exports = promotionRouter;
